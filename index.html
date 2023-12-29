@@ -355,7 +355,7 @@
           <section>
           <h3>The Secret Sauce</h3>
 
-              <pre class="supersmall float_left" style="width:50%"><code class="javascript">
+<pre class="supersmall float_left" style="width:50%"><code class="javascript">
 // if paginated start with this:
 temp1 =   [].concat(temp1, temp2, temp3, temp4);
 
@@ -377,6 +377,7 @@ seats: tu.seats.toString().replace(/(?=,(?!"))(,(?!{))/g, " "),
 // for this use case, create a different array with only,
 // the users from uUsers that meet certain criteria
 var filteredUsers = [];
+  
 for (let i = 0; i < uUsers.length; i++) {
   const ii = uUsers[i];
   if (
@@ -384,9 +385,8 @@ for (let i = 0; i < uUsers.length; i++) {
     ii.updatedBy.includes("jaydo") && ii.seats.includes("TI.C5")
   ) {filteredUsers.push(uUsers[i]);}
 }
-              </code></pre>
-              <pre class="supersmall float_left" style="width:50%"><code class="javascript">
-
+</code></pre>
+<pre class="supersmall float_left" style="width:50%"><code class="javascript">
 // map of selected users to csv file as string
 const mycsv = [
   [
