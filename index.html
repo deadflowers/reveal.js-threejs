@@ -353,11 +353,11 @@
           </section>
 
           <section>
-          <h3>wtf</h3>
+          <h3>The Secret Sauce</h3>
 
               <pre class="supersmall float_left" style="width:50%"><code class="javascript">
 // if paginated start with this:
-// temp1 =   [].concat(temp1, temp2, temp3, temp4);
+temp1 =   [].concat(temp1, temp2, temp3, temp4);
 
 var uUsers = [];
 
@@ -366,78 +366,36 @@ const rows = temp1.length;
 for (var i = 0; i < rows; i++) {
   const tu = temp1[i];
   uUsers.push({
-    id: tu.id,
-    firstName: tu.profile.firstName,
-    lastName: tu.profile.lastName,
-    loginEmail: tu.profile.primaryEmail,
-    seats: tu.seats.toString().replace(/(?=,(?!"))(,(?!{))/g, " "),
-    roles: tu.profile.csbRoleIds,
-    updatedBy: tu.profile.updatedByName,
+    id: tu.id,firstName: tu.profile.firstName, 
+    lastName: tu.profile.lastName, loginEmail: tu.profile.primaryEmail,
+seats: tu.seats.toString().replace(/(?=,(?!"))(,(?!{))/g, " "),
+    roles: tu.profile.csbRoleIds,updatedBy: tu.profile.updatedByName,
     updatedLast: tu.profile.updatedAt
   });
 }
 
-  // test of filtering just the users updated during batch update of tri analyst, by jay
-for (let i = 0; i < uUsers.length; i++) {
-  if (
-    (uUsers[i].updatedLast.includes("2023-12-19") ||
-      uUsers[i].updatedLast.includes("2023-12-20")) &&
-    uUsers[i].updatedBy.includes("jaydo")
-  ) {
-    console.log(uUsers[i]);
-  }
-}
-
-  
-// for this use case, create a different array with only the users from uUsers that meet certain criteria
+// for this use case, create a different array with only,
+// the users from uUsers that meet certain criteria
 var filteredUsers = [];
 for (let i = 0; i < uUsers.length; i++) {
   const ii = uUsers[i];
   if (
-    (ii.updatedLast.includes("2023-12-19") ||
-      ii.updatedLast.includes("2023-12-20")) &&
-    ii.updatedBy.includes("jaydo") &&
-    ii.seats.includes("TI.C5")
-  ) {
-    filteredUsers.push(uUsers[i]);
-  }
+    (ii.updatedLast.includes("2023-12-19") || ii.updatedLast.includes("2023-12-20")) &&
+    ii.updatedBy.includes("jaydo") && ii.seats.includes("TI.C5")
+  ) {filteredUsers.push(uUsers[i]);}
 }
               </code></pre>
               <pre class="supersmall float_left" style="width:50%"><code class="javascript">
 
-// test map of selected users
-filteredUsers.map((user) => [
-  user.id,
-  user.firstName,
-  user.lastName,
-  user.loginEmail,
-  user.seats,
-  user.roles,
-  user.updatedBy,
-  user.updatedLast
-]);
-
 // map of selected users to csv file as string
 const mycsv = [
   [
-    "DATRep ID",
-    "First Name",
-    "Last Name",
-    "Login Email",
-    "Product Seats",
-    "Role IDs",
-    "Updated By",
-    "Last Updated"
+    "DATRep ID","First Name","Last Name","Login Email",
+    "Product Seats","Role IDs","Updated By","Last Updated"
   ],
   ...filteredUsers.map((user) => [
-    user.id,
-    user.firstName,
-    user.lastName,
-    user.loginEmail,
-    user.seats,
-    user.roles,
-    user.updatedBy,
-    user.updatedLast
+    user.id,user.firstName,user.lastName,user.loginEmail,
+    user.seats,user.roles,user.updatedBy, user.updatedLast
   ])
 ]
   .map((e) => e.join(","))
