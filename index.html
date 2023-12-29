@@ -378,17 +378,14 @@
              <canvas data-sample="webgl_spinning_colored_cube" style="display:inline"></canvas>
           </section>
           
-          <section>
-          <h3>The Secret Sauce</h3>
-
-<pre class="supersmall float_left" style="width:50%"><code class="javascript">
+<section>
+<h2>Array 1: Store the right deets</h2>
+<pre class="code medium"><code class="javascript">
 // if paginated start with this:
 temp1 =   [].concat(temp1, temp2, temp3, temp4);
-
 var uUsers = [];
 
 const rows = temp1.length;
-
 for (var i = 0; i < rows; i++) {
   const tu = temp1[i];
   uUsers.push({
@@ -399,9 +396,13 @@ seats: tu.seats.toString().replace(/(?=,(?!"))(,(?!{))/g, " "),
     updatedLast: tu.profile.updatedAt
   });
 }
+</code></pre>
+</section>
 
-// for this use case, create a different array with only,
-// the users from uUsers that meet certain criteria
+<section>
+<h2>Array 2: Looking for something...</h2>
+<pre class="code medium"><code class="javascript">
+// new array: users from uUsers that meet our criteria
 var filteredUsers = [];
   
 for (let i = 0; i < uUsers.length; i++) {
@@ -411,9 +412,12 @@ for (let i = 0; i < uUsers.length; i++) {
     ii.updatedBy.includes("jaydo") && ii.seats.includes("TI.C5")
   ) {filteredUsers.push(uUsers[i]);}
 }
-  
 </code></pre>
-<pre class="supersmall float_left" style="width:50%"><code class="javascript">
+</section>
+
+<section>
+<h2>Flatten & Stringify</h2>
+<pre class="code medium"><code class="javascript">
 // map of selected users to csv file as string
 const mycsv = [
   [
@@ -427,15 +431,23 @@ const mycsv = [
 ]
   .map((e) => e.join(","))
   .join("\n");
-
 console.log(mycsv); // test csv output
+</code></pre>
+</section>
 
-
+<section>
+<h2>The Blob: String to URL</h2>
+<pre class="code medium"><code class="javascript">
 // convert string data to url
 var data = mycsv;
 let blob = new Blob([data], { type: "text/plain" });
 let url = URL.createObjectURL(blob);
+</code></pre>
+</section>
 
+<section>
+<h2>Make a Download Link & Click on it</h2>
+<pre class="code medium"><code class="javascript">
 // create anchor tag
 let downloadLink = document.createElement("a");
 var fileDate = Date.now();
@@ -445,7 +457,7 @@ downloadLink.href = url;
 // auto click download
 downloadLink.click();
 </code></pre>
- </section>
+</section>
 
 <!-- <pre class="supersmall float_left" style="width:50%"><code>
 
