@@ -385,6 +385,7 @@ for (let i = 0; i < uUsers.length; i++) {
     ii.updatedBy.includes("jaydo") && ii.seats.includes("TI.C5")
   ) {filteredUsers.push(uUsers[i]);}
 }
+  
 </code></pre>
 <pre class="supersmall float_left" style="width:50%"><code class="javascript">
 // map of selected users to csv file as string
@@ -401,8 +402,8 @@ const mycsv = [
   .map((e) => e.join(","))
   .join("\n");
 
-// test csv output
-console.log(mycsv);
+console.log(mycsv); // test csv output
+
 
 // convert string data to url
 var data = mycsv;
