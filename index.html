@@ -354,7 +354,116 @@
 
           <section>
           <h3>wtf</h3>
-            <pre class="supersmall float_left" style="width:50%"><code>
+
+              <pre class="supersmall float_left" style="width:50%"><code class="javascript">
+// if paginated start with this:
+// temp1 =   [].concat(temp1, temp2, temp3, temp4);
+
+var uUsers = [];
+
+const rows = temp1.length;
+
+for (var i = 0; i < rows; i++) {
+  const tu = temp1[i];
+  uUsers.push({
+    id: tu.id,
+    firstName: tu.profile.firstName,
+    lastName: tu.profile.lastName,
+    loginEmail: tu.profile.primaryEmail,
+    seats: tu.seats.toString().replace(/(?=,(?!"))(,(?!{))/g, " "),
+    roles: tu.profile.csbRoleIds,
+    updatedBy: tu.profile.updatedByName,
+    updatedLast: tu.profile.updatedAt
+  });
+}
+
+  // test of filtering just the users updated during batch update of tri analyst, by jay
+for (let i = 0; i < uUsers.length; i++) {
+  if (
+    (uUsers[i].updatedLast.includes("2023-12-19") ||
+      uUsers[i].updatedLast.includes("2023-12-20")) &&
+    uUsers[i].updatedBy.includes("jaydo")
+  ) {
+    console.log(uUsers[i]);
+  }
+}
+
+  
+// for this use case, create a different array with only the users from uUsers that meet certain criteria
+var filteredUsers = [];
+for (let i = 0; i < uUsers.length; i++) {
+  const ii = uUsers[i];
+  if (
+    (ii.updatedLast.includes("2023-12-19") ||
+      ii.updatedLast.includes("2023-12-20")) &&
+    ii.updatedBy.includes("jaydo") &&
+    ii.seats.includes("TI.C5")
+  ) {
+    filteredUsers.push(uUsers[i]);
+  }
+}
+              </code></pre>
+              <pre class="code medium float_left" style="width:50%"><code class="javascript">
+
+// test map of selected users
+filteredUsers.map((user) => [
+  user.id,
+  user.firstName,
+  user.lastName,
+  user.loginEmail,
+  user.seats,
+  user.roles,
+  user.updatedBy,
+  user.updatedLast
+]);
+
+// map of selected users to csv file as string
+const mycsv = [
+  [
+    "DATRep ID",
+    "First Name",
+    "Last Name",
+    "Login Email",
+    "Product Seats",
+    "Role IDs",
+    "Updated By",
+    "Last Updated"
+  ],
+  ...filteredUsers.map((user) => [
+    user.id,
+    user.firstName,
+    user.lastName,
+    user.loginEmail,
+    user.seats,
+    user.roles,
+    user.updatedBy,
+    user.updatedLast
+  ])
+]
+  .map((e) => e.join(","))
+  .join("\n");
+
+// test csv output
+console.log(mycsv);
+
+// convert string data to url
+var data = mycsv;
+let blob = new Blob([data], { type: "text/plain" });
+let url = URL.createObjectURL(blob);
+
+// create anchor tag
+let downloadLink = document.createElement("a");
+var fileDate = Date.now();
+downloadLink.download = "console-out-" + fileDate + ".csv";
+downloadLink.href = url;
+
+// auto click download
+downloadLink.click();                
+              </code></pre>
+
+            
+<!-- <pre class="supersmall float_left" style="width:50%"><code>
+
 function init(scene) {
   // Initialize
   var gl = WebGLUtils.setupWebGL(scene.canvas);
@@ -507,7 +616,8 @@ window.samples.webgl_spinning_cube = {
       animate();
     }
   }
-            </code></pre>
+            </code></pre> -->
+            
           </section>
 
           <section>
@@ -541,7 +651,7 @@ window.samples.webgl_spinning_cube = {
     // Set up the vertex buffer
     gl.bindBuffer(gl.ARRAY_BUFFER, scene.box.vertexObject);
     ...
-            </code></pre>
+            </code></pre>              -->
           </section>
 
           <section>
